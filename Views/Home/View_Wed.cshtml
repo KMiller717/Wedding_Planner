@@ -1,0 +1,13 @@
+@model Wedding
+
+<a href="/Success">Go Back to Dashboard</a>
+
+<h1>@Model.WedderOne & @Model.WedderTwo</h1>
+
+<p>Wedding Date: @Model.Date</p>
+<p>List of Attendees</p>
+
+@foreach( var a in Model.Attendees)
+{
+    <li>@a.Guest.FirstName</li>
+}

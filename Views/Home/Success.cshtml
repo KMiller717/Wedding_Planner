@@ -1,0 +1,60 @@
+@model List<Wedding>
+
+
+<h2>Welcome @ViewBag.User.FirstName</h2>
+
+
+
+<a href="/">Home</a>
+
+<a href="logout">Log Out</a>
+
+<a href="/addevent">Add Event</a>
+
+<table class="table">
+    <thead>
+        <th>Wedding Folks</th>
+        <th>Date & Time</th>
+        <th>Guest Count</th>
+        <th>Action</th>
+    </thead>
+    <tbody>
+        @foreach (var w in Model)
+        {
+        <tr>
+            <td><a href="/view/@w.WeddingId">@w.WedderOne & @w.WedderTwo</a></td>
+            <td>@w.Date</td>
+            <td>@w.Attendees.Count</td>
+            <td>
+            @if (w.Creator.UserId == ViewBag.User.UserId)
+            {
+                <a href="/cancel/@w.WeddingId">Cancel</a>
+            }
+            else{
+                
+
+                
+                if (w.Attendees.Any( u => u.UserId == ViewBag.User.UserId))
+                {
+                    <a href="/unrsvp/@w.WeddingId/@ViewBag.User.UserId">Un-RSVP</a>
+                }
+                else 
+                {
+                <a href="/rsvp/@w.WeddingId/@ViewBag.User.UserId">RSVP</a>
+                }
+                
+                
+
+            }
+            
+            </td>
+            
+
+            
+            
+        </tr>
+        }
+        
+        
+    </tbody>
+</table>
